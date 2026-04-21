@@ -63,8 +63,10 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 	spec.CustomTitlebar = true;
 
 	Walnut::Application* app = new Walnut::Application(spec);
+
 	std::shared_ptr<ExampleLayer> exampleLayer = std::make_shared<ExampleLayer>();
 	app->PushLayer(exampleLayer);
+
 	app->SetMenubarCallback([app, exampleLayer]()
 	{
 		if (ImGui::BeginMenu("File"))
@@ -85,5 +87,6 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 			ImGui::EndMenu();
 		}
 	});
+
 	return app;
 }

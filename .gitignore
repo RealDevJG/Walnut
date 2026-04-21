@@ -2,12 +2,14 @@
 .vs/
 bin/
 bin-int/
+logs/
 
 # Files
 *.vcxproj
 *.vcxproj.user
 *.vcxproj.filters
 *.sln
+*imgui.ini
 
 # Exclude
 !vendor/bin
