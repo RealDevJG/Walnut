@@ -95,6 +95,7 @@ namespace Walnut {
 
 		static ImGui_ImplVulkanH_Window* GetMainWindowData();
 		static VkCommandBuffer GetActiveCommandBuffer();
+		static uint32_t GetQueueFamilyIndex();
 	private:
 		void Init();
 		void Shutdown();

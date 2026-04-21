@@ -1128,4 +1128,9 @@ namespace Walnut {
 		return s_ActiveCommandBuffer;
 	}
 
+	uint32_t Application::GetQueueFamilyIndex()
+	{
+		return g_QueueFamily;
+	}
+
 }
