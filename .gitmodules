@@ -17,6 +17,3 @@
 [submodule "Walnut-Modules/Walnut-Networking"]
 	path = Walnut-Modules/Walnut-Networking
 	url = https://github.com/StudioCherno/Walnut-Networking
-[submodule "glfw"]
-	path = glfw
-	url = https://github.com/thecherno/glfw
