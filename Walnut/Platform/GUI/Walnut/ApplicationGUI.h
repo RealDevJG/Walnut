@@ -67,6 +67,20 @@ namespace Walnut {
 
 		const std::vector<std::shared_ptr<Layer>>& GetLayerStack() const { return m_LayerStack; }
 
+		template<typename T> requires std::derived_from<T, Layer>
+		const T* GetLayer()
+		{
+			for (const auto& layer : m_LayerStack)
+			{
+				if (auto casted = dynamic_cast<T*>(layer.get()))
+				{
+					return casted;
+				}
+			}
+
+			return nullptr;
+		}
+
 		void Close();
 
 		bool IsMaximized() const;
