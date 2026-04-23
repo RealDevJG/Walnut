@@ -7,6 +7,8 @@ namespace Walnut {
 
 	typedef enum class KeyCode : uint16_t
 	{
+		None = 0,
+
 		// From glfw3.h
 		Space = 32,
 		Apostrophe = 39, /* ' */
