@@ -2,6 +2,7 @@
 
 #include "Walnut/Layer.h"
 #include "Walnut/Image.h"
+#include <Walnut/Core/Events/Event.h>
 
 #include <string>
 #include <vector>
@@ -82,6 +83,8 @@ namespace Walnut {
 		}
 
 		void Close();
+
+		void RaiseEvent(Event& event);
 
 		bool IsMaximized() const;
 		std::shared_ptr<Image> GetApplicationIcon() const { return m_AppHeaderIcon; }

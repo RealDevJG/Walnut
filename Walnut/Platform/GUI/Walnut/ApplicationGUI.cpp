@@ -2,6 +2,8 @@
 
 #include "Walnut/UI/UI.h"
 #include "Walnut/Core/Log.h"
+#include <Walnut/Input/KeyCodes.h>
+#include <Walnut/Core/Events/InputEvents.h>
 
 //
 // Adapted from Dear ImGui Vulkan example
@@ -25,6 +27,7 @@
 #include "stb_image.h"
 
 #include <iostream>
+#include <ranges>
 
 // Emedded font
 #include "ImGui/Roboto-Regular.embed"
@@ -461,6 +464,56 @@ namespace Walnut {
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
 		m_WindowHandle = glfwCreateWindow(m_Specification.Width, m_Specification.Height, m_Specification.Name.c_str(), NULL, NULL);
+		glfwSetWindowUserPointer(m_WindowHandle, this);
+
+		glfwSetKeyCallback(
+			m_WindowHandle,
+			[](GLFWwindow* handle, int key, int scancode, int action, int mods)
+			{
+				auto* app = static_cast<Application*>(glfwGetWindowUserPointer(handle));
+
+				switch (action)
+				{
+					case GLFW_PRESS:
+					case GLFW_REPEAT:
+					{
+						KeyPressedEvent event(static_cast<KeyCode>(key), action == GLFW_REPEAT);
+						app->RaiseEvent(event);
+						break;
+					}
+					case GLFW_RELEASE:
+					{
+						KeyReleasedEvent event(static_cast<KeyCode>(key));
+						app->RaiseEvent(event);
+						break;
+					}
+				}
+			}
+		);
+
+		glfwSetMouseButtonCallback(
+			m_WindowHandle,
+			[](GLFWwindow* handle, int button, int action, int mods)
+			{
+				auto* app = static_cast<Application*>(glfwGetWindowUserPointer(handle));
+
+				switch (action)
+				{
+					case GLFW_PRESS:
+					{
+						MousePressedEvent event(static_cast<MouseButton>(button));
+						app->RaiseEvent(event);
+						break;
+					}
+					case GLFW_RELEASE:
+					{
+						MouseReleasedEvent event(static_cast<MouseButton>(button));
+						app->RaiseEvent(event);
+						break;
+					}
+				}
+			}
+		);
 
 		if (m_Specification.CenterWindow)
 		{
@@ -1024,6 +1077,19 @@ namespace Walnut {
 	void Application::Close()
 	{
 		m_Running = false;
+	}
+
+	void Application::RaiseEvent(Event& event)
+	{
+		for (auto& layer : std::views::reverse(m_LayerStack))
+		{
+			layer->OnEvent(event);
+
+			if (event.Handled)
+			{
+				break;
+			}
+		}
 	}
 
 	bool Application::IsMaximized() const
