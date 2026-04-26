@@ -693,6 +693,8 @@ namespace Walnut {
 
 	void Application::Shutdown()
 	{
+		m_MenubarCallback = nullptr;
+
 		for (auto& layer : m_LayerStack)
 			layer->OnDetach();
 
