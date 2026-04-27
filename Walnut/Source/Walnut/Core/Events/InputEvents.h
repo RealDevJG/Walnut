@@ -3,6 +3,8 @@
 #include "Event.h"
 
 #include <Walnut/Input/KeyCodes.h>
+
+#include <glm/glm.hpp>
 #include <format>
 
 namespace Walnut {
@@ -93,6 +95,26 @@ namespace Walnut {
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
+	};
+
+	class MouseMovedEvent : public Event
+	{
+	public:
+		MouseMovedEvent(glm::vec2 pos)
+			: m_Pos(pos) {}
+		MouseMovedEvent(double xpos, double ypos)
+			: m_Pos(xpos, ypos) {}
+
+		inline glm::vec2 GetMousePos() const { return m_Pos; }
+
+		std::string ToString() const override
+		{
+			return std::format("MouseMovedEvent: x: {}, y: {}", m_Pos.x, m_Pos.y);
+		}
+
+		EVENT_CLASS_TYPE(MouseMoved)
+	private:
+		glm::vec2 m_Pos;
 	};
 
 }

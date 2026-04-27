@@ -515,6 +515,17 @@ namespace Walnut {
 			}
 		);
 
+		glfwSetCursorPosCallback(
+			m_WindowHandle,
+			[](GLFWwindow* handle, double xpos, double ypos)
+			{
+				auto* app = static_cast<Application*>(glfwGetWindowUserPointer(handle));
+
+				MouseMovedEvent event(xpos, ypos);
+				app->RaiseEvent(event);
+			}
+		);
+
 		if (m_Specification.CenterWindow)
 		{
 			glfwSetWindowPos(m_WindowHandle,

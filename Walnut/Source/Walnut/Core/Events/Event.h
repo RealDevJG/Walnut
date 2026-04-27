@@ -10,7 +10,7 @@ namespace Walnut {
 	{
 		None = 0,
 		KeyPressed, KeyReleased,
-		MouseButtonPressed, MouseButtonReleased
+		MouseButtonPressed, MouseButtonReleased, MouseMoved
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
