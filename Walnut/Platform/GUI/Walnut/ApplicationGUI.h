@@ -69,7 +69,7 @@ namespace Walnut {
 		const std::vector<std::shared_ptr<Layer>>& GetLayerStack() const { return m_LayerStack; }
 
 		template<typename T> requires std::derived_from<T, Layer>
-		const T* GetLayer()
+		[[nodiscard]] const T* GetLayer() const
 		{
 			for (const auto& layer : m_LayerStack)
 			{
@@ -80,6 +80,14 @@ namespace Walnut {
 			}
 
 			return nullptr;
+		}
+
+		template<typename T> requires std::derived_from<T, Layer>
+		[[nodiscard]] T* GetLayer()
+		{
+			return const_cast<T*>(
+				static_cast<const Application*>(this)->GetLayer<T>()
+			);
 		}
 
 		void Close();
