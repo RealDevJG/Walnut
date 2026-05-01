@@ -515,6 +515,17 @@ namespace Walnut {
 			}
 		);
 
+		glfwSetScrollCallback(
+			m_WindowHandle,
+			[](GLFWwindow* handle, double xoffset, double yoffset)
+			{
+				auto* app = static_cast<Application*>(glfwGetWindowUserPointer(handle));
+
+				MouseScrolledEvent event(glm::vec2(xoffset, yoffset));
+				app->RaiseEvent(event);
+			}
+		);
+
 		glfwSetCursorPosCallback(
 			m_WindowHandle,
 			[](GLFWwindow* handle, double xpos, double ypos)

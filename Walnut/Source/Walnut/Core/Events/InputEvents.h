@@ -117,4 +117,24 @@ namespace Walnut {
 		glm::vec2 m_Pos;
 	};
 
+	class MouseScrolledEvent : public Event
+	{
+	public:
+		MouseScrolledEvent(glm::vec2 scrollOffset)
+			: m_ScrollOffset(scrollOffset) {}
+		MouseScrolledEvent(double xoffset, double yoffset)
+			: m_ScrollOffset(xoffset, yoffset) {}
+
+		inline glm::vec2 GetScrollOffset() const { return m_ScrollOffset; }
+
+		std::string ToString() const override
+		{
+			return std::format("MouseScrolledEvent: x: {}, y: {}", m_ScrollOffset.x, m_ScrollOffset.y);
+		}
+
+		EVENT_CLASS_TYPE(MouseScrolled)
+	private:
+		glm::vec2 m_ScrollOffset;
+	};
+
 }
