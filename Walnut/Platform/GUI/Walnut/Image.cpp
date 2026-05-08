@@ -309,7 +309,7 @@ namespace Walnut {
 		}
 	}
 
-	std::vector<uint8_t> Image::ReadPixels(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	std::vector<uint8_t> Image::ReadPixels(uint32_t x, uint32_t y, uint32_t width, uint32_t height) const
 	{
 		if (x + width > m_Width || y + height > m_Height)
 			return {};

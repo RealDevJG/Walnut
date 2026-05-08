@@ -22,7 +22,7 @@ namespace Walnut {
 		~Image();
 
 		void SetData(const void* data);
-		std::vector<uint8_t> ReadPixels(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
+		[[nodiscard]] std::vector<uint8_t> ReadPixels(uint32_t x, uint32_t y, uint32_t width, uint32_t height) const;
 
 		VkImage GetImage() const { return m_Image; }
 		VkImageView GetImageView() const { return m_ImageView; }
